@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService, Employee } from './employee.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,27 +9,38 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './employees.component.html',
   imports: [CommonModule,FormsModule],
 })
+
 export class EmployeesComponent implements OnInit {
-  employees: Employee[] = [];
-  filteredEmployees: Employee[] = [];
-  positions: string[] = [];
-  selectedPosition: string = '';
+  selectedPosition$ = new BehaviorSubject<string>('');
+  employees$!: Observable<Employee[]>;
+  positions$!: Observable<string[]>;
+  filteredEmployees$!: Observable<Employee[]>;
+  filtered$!: Observable<Employee[]>;
 
   constructor(private employeeService: EmployeeService) {}
 
-  ngOnInit() {
-    this.employeeService.getEmployees().subscribe(data => {
-      this.employees = data;
-      this.positions = Array.from(new Set(data.map(emp => emp.position)));
-      this.applyFilter();
-    });
+  ngOnInit(): void {
+    this.employees$ = this.employeeService.getEmployees();
+
+    this.positions$ = this.employees$.pipe(
+      map((employees: Employee[]) => Array.from(new Set(employees.map(emp => emp.position))))
+    );    
+
+    this.filteredEmployees$ = combineLatest([
+      this.employees$,
+      this.selectedPosition$
+    ]).pipe(
+      map(([employees, selectedPosition]) =>
+        selectedPosition
+          ? employees.filter(emp => emp.position === selectedPosition)
+          : employees
+      )
+    );
+
+    
   }
 
-  applyFilter() {
-    if (this.selectedPosition) {
-      this.filteredEmployees = this.employees.filter(emp => emp.position === this.selectedPosition);
-    } else {
-      this.filteredEmployees = this.employees;
-    }
+  onPositionChange(position: string) {
+    this.selectedPosition$.next(position);
   }
 }

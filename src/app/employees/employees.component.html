@@ -1,18 +1,15 @@
 <h2>Employee List</h2>
 
-<!-- <label for="position">Filter by Position:</label>
-<select id="position" [(ngModel)]="selectedPosition" (change)="applyFilter()">
-  <option value="">All</option>
-  <option *ngFor="let pos of positions" [value]="pos">{{ pos }}</option>
-</select> -->
+<label for="position">Filter by Position:</label>
+<select id="position"
+        [ngModel]="selectedPosition$ | async"
+        (ngModelChange)="onPositionChange($event)">
+  <option value="">ALL</option>
+  <option *ngFor="let pos of positions$ | async" [value]="pos">{{ pos }}</option>
+</select>
 
-<label for="position"> Filter by Position: </label>
-<select id="position" [(ngModel)] ="selectedPosition" (change)="applyFilter()">
-    <option value="">ALL</option>
-    <option *ngFor="let pos of positions" [value]="pos">{{ pos }} </option>
-    </select>
 <ul>
-  <li *ngFor="let employee of filteredEmployees">
+  <li *ngFor="let employee of filteredEmployees$ | async">
     {{ employee.name }} - {{ employee.position }}
   </li>
 </ul>
