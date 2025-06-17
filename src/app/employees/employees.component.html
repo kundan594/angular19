@@ -17,6 +17,6 @@
 <app-pagination
   [totalItems]="(filteredEmployees$ | async)?.length || 0"
   [itemsPerPage]="itemsPerPage"
-  [currentPage]="currentPage"
+  [currentPage]="(currentPage$ | async) || 1"
   (pageChange)="onPageChange($event)">
 </app-pagination>

@@ -52,6 +52,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   onPositionChange(position: string) {
+    this.currentPage$.next(1);
     this.selectedPosition$.next(position);
   }
 
