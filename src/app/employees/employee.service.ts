@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -11,13 +12,18 @@ export interface Employee {
   providedIn: 'root'
 })
 export class EmployeeService {
-  private employees: Employee[] = [
-    { id: 1, name: 'Alice Smith', position: 'Developer' },
-    { id: 2, name: 'Bob Johnson', position: 'Designer' },
-    { id: 3, name: 'Charlie Lee', position: 'Manager' }
-  ];
+
+  constructor( private http:HttpClient){
+
+  }
+  // private employees: Employee[] = [
+  //   { id: 1, name: 'Alice Smith', position: 'Developer' },
+  //   { id: 2, name: 'Bob Johnson', position: 'Designer' },
+  //   { id: 3, name: 'Charlie Lee', position: 'Manager' }
+  // ];
 
   getEmployees(): Observable<Employee[]> {
-    return of(this.employees);
+    return this.http.get<Employee[]>('/assets/employees.json');
+    //return of(this.employees);
   }
 }
