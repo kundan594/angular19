@@ -1,6 +1,6 @@
 <h2>Employee List</h2>
 
-<label for="position">Filter by Position:</label>
+<label for="position">Filter by Gender:</label>
 <select id="position"
         [ngModel]="selectedPosition$ | async"
         (ngModelChange)="onPositionChange($event)">
@@ -9,13 +9,13 @@
 </select>
 
 <ul>
-  <li *ngFor="let employee of pagedEmployees$ | async">
-    {{ employee.name }} - {{ employee.position }}
+  <li *ngFor="let user of users$ | async">
+    {{ user.firstName }} {{ user.lastName }} - {{ user.gender }} - {{ user.email }}
   </li>
 </ul>
 
 <app-pagination
-  [totalItems]="(filteredEmployees$ | async)?.length || 0"
+  [totalItems]="(total$ | async) || 0"
   [itemsPerPage]="itemsPerPage"
   [currentPage]="(currentPage$ | async) || 1"
   (pageChange)="onPageChange($event)">

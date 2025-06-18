@@ -1,11 +1,27 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
-export interface Employee {
+export interface DummyUser {
   id: number;
-  name: string;
-  position: string;
+  firstName: string;
+  lastName: string;
+  maidenName: string;
+  age: number;
+  gender: string;
+  email: string;
+  phone: string;
+  username: string;
+  birthDate: string;
+  image: string;
+  // ...add more fields as needed
+}
+
+export interface DummyUserResponse {
+  users: DummyUser[];
+  total: number;
+  skip: number;
+  limit: number;
 }
 
 @Injectable({
@@ -16,14 +32,16 @@ export class EmployeeService {
   constructor( private http:HttpClient){
 
   }
-  // private employees: Employee[] = [
-  //   { id: 1, name: 'Alice Smith', position: 'Developer' },
-  //   { id: 2, name: 'Bob Johnson', position: 'Designer' },
-  //   { id: 3, name: 'Charlie Lee', position: 'Manager' }
-  // ];
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>('/assets/employees.json');
-    //return of(this.employees);
-  }
+  getEmployees(page: number, itemsPerPage: number): Observable<DummyUserResponse> {
+    const skip = (page - 1) * itemsPerPage;
+    // const url = `https://dummyjson.com/users?limit=${itemsPerPage}&skip=${skip}`;
+    // return this.http.get<DummyUserResponse>(url);
+
+const params = new HttpParams()
+  .set('limit', itemsPerPage)
+  .set('skip', skip);
+return this.http.get<DummyUserResponse>('https://dummyjson.com/users', { params });
+ 
+}
 }

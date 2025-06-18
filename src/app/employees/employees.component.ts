@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService, Employee } from './employee.service';
-import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+import { EmployeeService, DummyUser, DummyUserResponse } from './employee.service';
+import { BehaviorSubject, combineLatest, map, Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -13,42 +13,38 @@ import { PaginationComponent } from '../pagination/pagination.component';
 
 export class EmployeesComponent implements OnInit {
   selectedPosition$ = new BehaviorSubject<string>('');
-  employees$!: Observable<Employee[]>;
-  positions$!: Observable<string[]>;
-  filteredEmployees$!: Observable<Employee[]>;
   currentPage$ = new BehaviorSubject<number>(1);
-  itemsPerPage = 2;
-  pagedEmployees$!: Observable<Employee[]>;
+  itemsPerPage = 50;
+
+  // Store the latest API response
+  response$!: Observable<DummyUserResponse>;
+  users$!: Observable<DummyUser[]>;
+  positions$!: Observable<string[]>;
+  total$!: Observable<number>;
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employees$ = this.employeeService.getEmployees();
-
-    this.positions$ = this.employees$.pipe(
-      map((employees: Employee[]) => Array.from(new Set(employees.map(emp => emp.position))))
-    );    
-
-    this.filteredEmployees$ = combineLatest([
-      this.employees$,
+    this.response$ = combineLatest([
+      this.currentPage$,
       this.selectedPosition$
     ]).pipe(
-      map(([employees, selectedPosition]) =>
-        selectedPosition
-          ? employees.filter(emp => emp.position === selectedPosition)
-          : employees
+      switchMap(([page, position]) =>
+        this.employeeService.getEmployees(page, this.itemsPerPage).pipe(
+          map(res => {
+            // If filtering by position, filter users client-side
+            const users = position ? res.users.filter(u => u.gender === position) : res.users;
+            return { ...res, users };
+          })
+        )
       )
     );
 
-    this.pagedEmployees$ = combineLatest([
-      this.filteredEmployees$,
-      this.currentPage$
-    ]).pipe(
-      map(([employees, page]) => {
-        const start = (page - 1) * this.itemsPerPage;
-        return employees.slice(start, start + this.itemsPerPage);
-      })
+    this.users$ = this.response$.pipe(map(res => res.users));
+    this.positions$ = this.response$.pipe(
+      map(res => Array.from(new Set(res.users.map(u => u.gender))))
     );
+    this.total$ = this.response$.pipe(map(res => res.total));
   }
 
   onPositionChange(position: string) {
