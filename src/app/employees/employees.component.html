@@ -9,14 +9,14 @@
 </select>
 
 <ul>
-  <li *ngFor="let user of users$ | async">
+  <li *ngFor="let user of filteredUsers$ | async">
     {{ user.firstName }} {{ user.lastName }} - {{ user.gender }} - {{ user.email }}
   </li>
 </ul>
 
 <app-pagination
   [totalItems]="(total$ | async) || 0"
-  [itemsPerPage]="itemsPerPage"
-  [currentPage]="(currentPage$ | async) || 1"
+  [itemsPerPage]="(itemsPerPage$ | async) || 50"
+  [currentPage]="currentPage || 1"
   (pageChange)="onPageChange($event)">
 </app-pagination>
