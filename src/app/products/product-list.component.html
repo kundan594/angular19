@@ -1,0 +1,31 @@
+<div *ngIf="productService.loading()">Loading...</div>
+<div *ngIf="productService.error()">Error: {{ productService.error() }}</div>
+
+<button (click)="productService.fetchProducts()">Refresh Products</button>
+
+<ul>
+  <li *ngFor="let product of productService.products()">
+    <app-product-card [product]="product">
+      <div>
+        <b>{{ product.brand }}</b> - ${{ product.price }}
+        <button (click)="edit(product)">Edit</button>
+        <button (click)="delete(product.id)">Delete</button>
+      </div>
+    </app-product-card>
+  </li>
+</ul>
+
+<form *ngIf="editing" (ngSubmit)="save()">
+  <input [(ngModel)]="editProduct.title" name="title" placeholder="Title" required />
+  <input [(ngModel)]="editProduct.brand" name="brand" placeholder="Brand" required />
+  <input [(ngModel)]="editProduct.price" name="price" type="number" placeholder="Price" required />
+  <button type="submit">Save</button>
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>
+
+<form *ngIf="!editing" (ngSubmit)="add()">
+  <input [(ngModel)]="newProduct.title" name="newTitle" placeholder="Title" required />
+  <input [(ngModel)]="newProduct.brand" name="newBrand" placeholder="Brand" required />
+  <input [(ngModel)]="newProduct.price" name="newPrice" type="number" placeholder="Price" required />
+  <button type="submit">Add Product</button>
+</form>
