@@ -51,6 +51,6 @@ export class ProductListComponent {
   }
 
   focusFirstProductInput() {
-    this.productCard?.focusInput2();
+    this.productCard?.focusAllInputs();
   }
 }

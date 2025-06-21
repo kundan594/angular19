@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from './product.service';
 
@@ -37,11 +37,15 @@ import { Product } from './product.service';
 export class ProductCardComponent {
   @Input() product!: Product;
 
-  @ViewChild('productInput2')  productInputRef2!: ElementRef<HTMLInputElement>
+  @ViewChild('productInput2')  productInputRef2!: ElementRef<HTMLInputElement>;
 
   // 1. Use @ViewChild to get a reference to the input
   @ViewChild('productInput') productInputRef!: ElementRef<HTMLInputElement>;
 
+  // Example: Use ViewChildren to get all input elements in this component
+  @ViewChildren('productInput, productInput2') allInputs!: QueryList<ElementRef<HTMLInputElement>>;
+
+  
   // 2. Expose a method to focus the input
   focusInput() {
     this.productInputRef?.nativeElement.focus();
@@ -49,5 +53,13 @@ export class ProductCardComponent {
 
   focusInput2(){
     this.productInputRef2?.nativeElement.focus();
+  }
+
+  // Focus all input fields in this card
+  focusAllInputs() {
+     this.allInputs.forEach((inputRef)=>{
+            inputRef.nativeElement.style.border = '2px solid red';
+     })
+   // this.allInputs.forEach(inputRef => inputRef.nativeElement.focus());
   }
 }
