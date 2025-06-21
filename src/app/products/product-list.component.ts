@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService, Product } from './product.service';
@@ -14,6 +14,8 @@ export class ProductListComponent {
   editing = false;
   editProduct: Product | any = {};
   newProduct: Partial<Product> = {};
+
+  @ViewChild(ProductCardComponent) productCard!: ProductCardComponent;
 
   constructor(public productService: ProductService) {}
 
@@ -46,5 +48,9 @@ export class ProductListComponent {
       this.productService.addProduct(this.newProduct as Omit<Product, 'id'>);
       this.newProduct = {};
     }
+  }
+
+  focusFirstProductInput() {
+    this.productCard?.focusInput2();
   }
 }

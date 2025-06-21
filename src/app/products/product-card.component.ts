@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from './product.service';
 
@@ -11,6 +11,9 @@ import { Product } from './product.service';
       <img [src]="product.thumbnail" width="80" />
       <div>
         <h3>{{ product.title }}</h3>
+        <!-- Example input to demonstrate @ViewChild -->
+        <input #productInput type="text" [value]="product.title" />
+         <input #productInput2 type="text" [value]="product.brand" />
         <!-- Default content slot -->
         <ng-content></ng-content>
         <!-- Named slot for actions -->
@@ -33,4 +36,18 @@ import { Product } from './product.service';
 })
 export class ProductCardComponent {
   @Input() product!: Product;
+
+  @ViewChild('productInput2')  productInputRef2!: ElementRef<HTMLInputElement>
+
+  // 1. Use @ViewChild to get a reference to the input
+  @ViewChild('productInput') productInputRef!: ElementRef<HTMLInputElement>;
+
+  // 2. Expose a method to focus the input
+  focusInput() {
+    this.productInputRef?.nativeElement.focus();
+  }
+
+  focusInput2(){
+    this.productInputRef2?.nativeElement.focus();
+  }
 }

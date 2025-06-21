@@ -2,6 +2,7 @@
 <div *ngIf="productService.error()">Error: {{ productService.error() }}</div>
 
 <button (click)="productService.fetchProducts()">Refresh Products</button>
+<button (click)="focusFirstProductInput()">Focus First Product Input</button>
 
 <ul>
   <li *ngFor="let product of productService.products()">
