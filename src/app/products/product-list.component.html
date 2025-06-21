@@ -8,9 +8,15 @@
     <app-product-card [product]="product">
       <div>
         <b>{{ product.brand }}</b> - ${{ product.price }}
+      </div>
+      <div card-actions>
         <button (click)="edit(product)">Edit</button>
         <button (click)="delete(product.id)">Delete</button>
       </div>
+      <select>
+        <option value="">Select Category</option>
+        <option *ngFor="let cat of ['smartphones','laptops','fragrances','skincare']" [value]="cat">{{cat}}</option>
+      </select>
     </app-product-card>
   </li>
 </ul>
