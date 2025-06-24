@@ -15,6 +15,15 @@ import { Product } from './product.service';
         <input #productInput type="text" [value]="product.title" />
         <!-- Conditionally present input (static: false) -->
         <input *ngIf="showBrandInput" #productInput2 type="text" [value]="product.brand" />
+
+        <!-- ng-template for dynamic rendering -->
+        <ng-template #extraInfo let-title="title" let-brand="brand">
+          <div class="extra-info">
+            <strong>Extra Info ====:</strong> {{ title }} ({{ brand }})
+          </div>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="extraInfo; context: { title: product.title, brand: product.brand }"></ng-container>
+
         <ng-content></ng-content>
         <div class="actions">
           <ng-content select="[card-actions]"></ng-content>
@@ -30,6 +39,7 @@ import { Product } from './product.service';
     img { margin-right: 12px; }
     .actions { margin-top: 8px; }
     .select-slot { margin-top: 8px; }
+    .extra-info { color: #1976d2; font-weight: bold; margin-top: 8px; }
   `]
 })
 export class ProductCardComponent implements OnInit, AfterViewInit {
@@ -52,7 +62,6 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
     // This works for static: false
     if (this.productInputRef2) {
       this.productInputRef2.nativeElement.style.border = '2px solid green';
-      
     }
   }
 
