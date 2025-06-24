@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ViewChildren, QueryList, AfterViewInit, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from './product.service';
 
@@ -11,16 +11,14 @@ import { Product } from './product.service';
       <img [src]="product.thumbnail" width="80" />
       <div>
         <h3>{{ product.title }}</h3>
-        <!-- Example input to demonstrate @ViewChild -->
+        <!-- Always present input (static: true) -->
         <input #productInput type="text" [value]="product.title" />
-         <input #productInput2 type="text" [value]="product.brand" />
-        <!-- Default content slot -->
+        <!-- Conditionally present input (static: false) -->
+        <input *ngIf="showBrandInput" #productInput2 type="text" [value]="product.brand" />
         <ng-content></ng-content>
-        <!-- Named slot for actions -->
         <div class="actions">
           <ng-content select="[card-actions]"></ng-content>
         </div>
-        <!-- Named slot for select dropdown -->
         <div class="select-slot">
           <ng-content select="select"></ng-content>
         </div>
@@ -34,32 +32,41 @@ import { Product } from './product.service';
     .select-slot { margin-top: 8px; }
   `]
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit, AfterViewInit {
   @Input() product!: Product;
+  showBrandInput = true; // Toggle this to test *ngIf scenario
 
-  @ViewChild('productInput2')  productInputRef2!: ElementRef<HTMLInputElement>;
-
-  // 1. Use @ViewChild to get a reference to the input
-  @ViewChild('productInput') productInputRef!: ElementRef<HTMLInputElement>;
-
-  // Example: Use ViewChildren to get all input elements in this component
+  // Always present input (not inside *ngIf)
+  @ViewChild('productInput', { static: true }) productInputRef!: ElementRef<HTMLInputElement>;
+  // Conditionally present input (inside *ngIf)
+  @ViewChild('productInput2', { static: false }) productInputRef2!: ElementRef<HTMLInputElement>;
+  // All input refs
   @ViewChildren('productInput, productInput2') allInputs!: QueryList<ElementRef<HTMLInputElement>>;
 
-  
-  // 2. Expose a method to focus the input
+  ngOnInit() {
+    // This works for static: true
+    this.productInputRef.nativeElement.style.border = '2px solid blue';
+  }
+
+  ngAfterViewInit() {
+    // This works for static: false
+    if (this.productInputRef2) {
+      this.productInputRef2.nativeElement.style.border = '2px solid green';
+      
+    }
+  }
+
   focusInput() {
     this.productInputRef?.nativeElement.focus();
   }
 
-  focusInput2(){
+  focusInput2() {
     this.productInputRef2?.nativeElement.focus();
   }
 
-  // Focus all input fields in this card
   focusAllInputs() {
-     this.allInputs.forEach((inputRef)=>{
-            inputRef.nativeElement.style.border = '2px solid red';
-     })
-   // this.allInputs.forEach(inputRef => inputRef.nativeElement.focus());
+    this.allInputs.forEach((inputRef) => {
+      inputRef.nativeElement.style.border = '2px solid red';
+    });
   }
 }
