@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService, Product } from './product.service';
 import { ProductCardComponent } from './product-card.component';
+import { AuthDirective } from '../shared/authDirective';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductCardComponent],
+  imports: [CommonModule, FormsModule, ProductCardComponent,AuthDirective],
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
   editing = false;
   editProduct: Product | any = {};
   newProduct: Partial<Product> = {};
+  isLoggedIn = true; // Replace with real auth logic
 
   @ViewChild(ProductCardComponent) productCard!: ProductCardComponent;
 

@@ -1,6 +1,9 @@
 <div *ngIf="productService.loading()">Loading...</div>
 <div *ngIf="productService.error()">Error: {{ productService.error() }}</div>
 
+<!-- ...existing code... -->
+<button *appAuth="isLoggedIn">Only for logged-in users</button>
+<!-- ...existing code... -->
 <button (click)="productService.fetchProducts()">Refresh Products</button>
 <button (click)="focusFirstProductInput()">Focus First Product Input</button>
 
