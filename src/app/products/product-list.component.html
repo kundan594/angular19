@@ -11,7 +11,7 @@
   <li *ngFor="let product of productService.products()">
     <app-product-card [product]="product">
       <div>
-        <b>{{ product.brand }}</b> - ${{ product.price }}
+        <b appLog> ----{{ product.brand }}</b> - ${{ product.price }}
       </div>
       <div card-actions>
         <button (click)="edit(product)">Edit</button>

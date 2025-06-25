@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { ProductService, Product } from './product.service';
 import { ProductCardComponent } from './product-card.component';
 import { AuthDirective } from '../shared/authDirective';
+import { LogDirective } from '../shared/logDirective';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductCardComponent,AuthDirective],
+  imports: [CommonModule, FormsModule, ProductCardComponent,AuthDirective,LogDirective],
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
