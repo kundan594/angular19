@@ -27,6 +27,12 @@
   </li>
 </ul>
 
+<ul>
+      @for (temperature of historicTemperatures | sort:'desc'; track temperature) {
+        <li (click)="onReset($index)">{{ temperature | temp:'cel' }}</li>
+      }
+    </ul>
+
 <form *ngIf="editing" (ngSubmit)="save()">
   <input [(ngModel)]="editProduct.title" name="title" placeholder="Title" required />
   <input [(ngModel)]="editProduct.brand" name="brand" placeholder="Brand" required />
