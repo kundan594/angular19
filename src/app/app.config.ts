@@ -7,6 +7,7 @@ import { provideEffects } from '@ngrx/effects';
 import { routes } from './app.routes';
 import { employeesReducer } from './employees/employees.reducer';
 import { EmployeesEffects } from './employees/employees.effects';
+import { API_URL } from './shared/api.token';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     provideRouter(routes),
     provideStore({ employees: employeesReducer }),
-    provideEffects([EmployeesEffects])
+    provideEffects([EmployeesEffects]),
+    { provide: API_URL, useValue: 'https://dummyjson.com' }
   ]
 };
