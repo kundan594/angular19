@@ -1,6 +1,8 @@
 <div *ngIf="productService.loading()">Loading...</div>
 <div *ngIf="productService.error()">Error: {{ productService.error() }}</div>
 
+
+<p>New York temperature: {{ 70.0 | temp:'fah':'cel' }}</p>
 <!-- ...existing code... -->
 <button *appAuth="isLoggedIn">Only for logged-in users</button>
 <!-- ...existing code... -->

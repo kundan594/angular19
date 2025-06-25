@@ -5,11 +5,12 @@ import { ProductService, Product } from './product.service';
 import { ProductCardComponent } from './product-card.component';
 import { AuthDirective } from '../shared/authDirective';
 import { LogDirective } from '../shared/logDirective';
+import { TemperaturePipe } from '../shared/temperature.pipe';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductCardComponent,AuthDirective,LogDirective],
+  imports: [CommonModule, FormsModule, ProductCardComponent,AuthDirective,LogDirective,TemperaturePipe],
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
