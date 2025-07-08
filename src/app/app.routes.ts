@@ -4,6 +4,8 @@ import { ProductListComponent } from './products/product-list.component';
 import { PostListComponent } from './posts/post-list.component';
 import { CommentListComponent } from './comments/comment-list.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { NoTaskComponent } from './tasks/no-task/no-task.component';
+import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'employees', pathMatch: 'full' },
@@ -15,4 +17,12 @@ export const routes: Routes = [
     path: 'tasks', // <your-domain>/tasks
     component: TasksComponent,
   },
+  {
+    path: '', // <your-domain>/
+    component: NoTaskComponent,
+  },
+  {
+    path: 'users/:userId', // <your-domain>/users/<uid>
+    component: UserTasksComponent
+  }
 ];

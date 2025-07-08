@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     importProvidersFrom(HttpClientModule),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideStore({ employees: employeesReducer }),
     provideEffects([EmployeesEffects]),
     { provide: API_URL, useValue: 'https://dummyjson.com' }
