@@ -66,3 +66,10 @@ cd employee-list
 
 ng generate component employees
 ng generate service employees/employee
+
+
+
+
+withComponentInputBinding  -- "withComponentInputBinding", which is a feature in Angular's router that allows route parameters to be automatically bound to component inputs. 
+
+
