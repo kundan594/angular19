@@ -3,6 +3,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { ProductListComponent } from './products/product-list.component';
 import { PostListComponent } from './posts/post-list.component';
 import { CommentListComponent } from './comments/comment-list.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'employees', pathMatch: 'full' },
@@ -10,4 +11,8 @@ export const routes: Routes = [
   { path: 'products', component: ProductListComponent },
   { path: 'posts', component: PostListComponent },
   { path: 'comments', component: CommentListComponent },
+  {
+    path: 'tasks', // <your-domain>/tasks
+    component: TasksComponent,
+  },
 ];
