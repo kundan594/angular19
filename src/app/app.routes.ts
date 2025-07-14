@@ -8,7 +8,7 @@ import { NoTaskComponent } from './tasks/no-task/no-task.component';
 import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'employees', pathMatch: 'full' },
+  { path: 'employees', redirectTo: 'employees', pathMatch: 'full' },
   { path: 'employees', component: EmployeesComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'posts', component: PostListComponent },
