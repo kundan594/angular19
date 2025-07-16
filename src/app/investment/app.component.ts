@@ -5,9 +5,9 @@ import { UserInputComponent } from './user-input/user-input.component';
 import { InvestmentResultsComponent } from './investment-results/investment-results.component';
 
 @Component({
-    selector: 'kkk-investment',
-    standalone: true,
-    templateUrl: './invest.component.html',
-    imports: [HeaderComponent, UserInputComponent, InvestmentResultsComponent]
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  imports: [HeaderComponent, UserInputComponent, InvestmentResultsComponent],
 })
-export class AppInvestmentComponent {}
+export class AppComponent {}
