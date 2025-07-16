@@ -8,6 +8,7 @@ import { NoTaskComponent } from './tasks/no-task/no-task.component';
 import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
 import { NewTaskComponent } from './tasks/new-task/new-task.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { routes as userRoutes } from './users/users.routes';
 
 export const routes: Routes = [
   { path: 'employees', redirectTo: 'employees', pathMatch: 'full' },
@@ -17,24 +18,20 @@ export const routes: Routes = [
   { path: 'comments', component: CommentListComponent },
   
   //// different routes 
-
-  {
+{
     path: '', // <your-domain>/
     component: NoTaskComponent,
+    // redirectTo: '/users/u1',
+    // pathMatch: 'full'
   },
   {
     path: 'users/:userId', // <your-domain>/users/<uid>
     component: UserTasksComponent,
-    children: [
-      {
-        path: 'tasks', // <your-domain>/users/<uid>/tasks
-        component: TasksComponent
-      },
-      {
-        path: 'tasks/new',
-        component: NewTaskComponent
-      }
-    ]
+    children: userRoutes,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
   {
     path: '**',
