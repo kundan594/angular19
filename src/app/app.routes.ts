@@ -13,6 +13,7 @@ import {
 import { NotFoundComponent } from './not-found/not-found.component';
 //import { routes as userRoutes } from './users/users.routes';
 import { inject } from '@angular/core';
+import { AppInvestmentComponent } from './investment/kkk.component';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'products', component: ProductListComponent },
   { path: 'posts', component: PostListComponent },
   { path: 'comments', component: CommentListComponent },
+  { path: 'invest', component: AppInvestmentComponent },
   
   {
     path: '', // <your-domain>/

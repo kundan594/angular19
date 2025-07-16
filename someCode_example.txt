@@ -1,0 +1,88 @@
+ <img
+      [src]="'assets/users/' + selectedUser.avatar"
+      [alt]="selectedUser.name"
+    />
+
+
+    get imagePath() {
+    return 'assets/users/' + this.selectedUser.avatar
+  }
+
+
+  <div>
+  <button (click)="onSelectUser()">
+    <img [src]="imagePath" [alt]="selectedUser.name" />
+    <span>{{ selectedUser.name }}</span>
+  </button>
+</div>
+
+
+
+with signal 
+
+ selectedUser = signal(DUMMY_USERS[randomIndex]);
+  imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar)
+
+  // get imagePath() {
+  //   return 'assets/users/' + this.selectedUser.avatar
+  // }
+
+  onSelectUser() {
+    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+    this.selectedUser.set(DUMMY_USERS[randomIndex]);
+  }
+
+
+  @Input() avatar!: string;
+  @Input() name!: string;
+
+
+
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
+
+  @Input() name?: string;
+
+
+  @Input({ required: true }) user!: User;
+  @Output() select = new EventEmitter();
+
+  
+// type User = {
+//   id: string;
+//   avatar: string;
+//   name: string;
+// }
+
+
+interface User {
+  id: string;
+  avatar: string;
+  name: string;
+}
+
+ @Input({ required: true }) user!: User;
+  @Output() select = new EventEmitter();
+
+
+  <main>
+  <ul id="users">
+    @for (user of users; track user.id) {
+      <li>
+        <app-user [user]="user" (select)="onSelectUser($event)" />
+      </li>
+    }
+  </ul>
+
+  @if (selectedUser) {
+    <app-tasks [name]="selectedUser.name" />
+  } @else {
+    <p id="fallback">Select a user to see their tasks!</p>
+  }
+
+
+   get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId);
+  }
+
+  <button [class.active]="selected" (click)="onSelectUser()">
