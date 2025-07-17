@@ -8,10 +8,10 @@ import { SortPipe } from './sort.pipe';
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [DatePipe, DecimalPipe, TemperaturePipe,SortPipe],
-  styleUrl: './app.css'
+  imports: [DatePipe, DecimalPipe, TemperaturePipe, SortPipe],
+   styleUrl: './app.css'
 })
-export class AppComponent4 {
+export class AppComponent {
   currentDate = new Date();
   currentTemperatures = {
     berlin: 4.2749812,
@@ -24,7 +24,14 @@ export class AppComponent4 {
     25, 37, 19, -4, 28, 21, 19, 28, 33, 31, 9, 11, 5, -12, -5,
   ];
 
+  constructor() {
+    this.historicTemperatures.sort((a, b) => a > b ? 1 : -1);
+  }
+
   onReset(index: number) {
     this.historicTemperatures[index] = 18;
+    // const newTemps = [...this.historicTemperatures]
+    // newTemps[index] = 18;
+    // this.historicTemperatures = newTemps;
   }
 }
