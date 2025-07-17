@@ -15,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { inject } from '@angular/core';
 import { AppComponent } from './investment/app.component';
 import { AppComponent1 } from './statusApp/app.component';
+import { AppComponent2 } from './lifecycle/app.component';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path: 'comments', component: CommentListComponent },
   { path: 'invest', component: AppComponent },
   { path: 'status', component: AppComponent1 },
+  { path: 'lifecycle', component: AppComponent2 },
   
   {
     path: '', // <your-domain>/
