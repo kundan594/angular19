@@ -18,6 +18,7 @@ import { AppComponent1 } from './statusApp/app.component';
 import { AppComponent2 } from './lifecycle/app.component';
 import { AppComponent3 } from './directives-deep-dive/app.component';
 import { AppComponent4 } from './pipe-deep-dive/app.component';
+import { AppComponent5 } from './serviceExample/app.component';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -39,6 +40,12 @@ export const routes: Routes = [
   { path: 'lifecycle', component: AppComponent2 },
   { path: 'directive', component: AppComponent3 },
   { path: 'pipe', component: AppComponent4 },
+  { path: 'service', component: AppComponent5},
+  
+  
+
+  
+  
   
   {
     path: '', // <your-domain>/

@@ -11,7 +11,7 @@ import { SortPipe } from './sort.pipe';
   imports: [DatePipe, DecimalPipe, TemperaturePipe, SortPipe],
    styleUrl: './app.css'
 })
-export class AppComponent {
+export class AppComponent4 {
   currentDate = new Date();
   currentTemperatures = {
     berlin: 4.2749812,
