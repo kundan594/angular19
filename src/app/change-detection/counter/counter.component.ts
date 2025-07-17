@@ -7,8 +7,8 @@ import { InfoMessageComponent } from '../info-message/info-message.component';
   standalone: true,
   templateUrl: './counter.component.html',
   styleUrl: './counter.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InfoMessageComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterComponent implements OnInit {
   private zone = inject(NgZone);
