@@ -86,3 +86,12 @@ interface User {
   }
 
   <button [class.active]="selected" (click)="onSelectUser()">
+
+
+  <div
+  [class]="{
+    status: true,
+    'status-online': currentStatus === 'online',
+    'status-offline': currentStatus === 'offline',
+    'status-unknown': currentStatus === 'unknown'
+  }" >
