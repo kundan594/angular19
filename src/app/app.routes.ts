@@ -16,6 +16,7 @@ import { inject } from '@angular/core';
 import { AppComponent } from './investment/app.component';
 import { AppComponent1 } from './statusApp/app.component';
 import { AppComponent2 } from './lifecycle/app.component';
+import { AppComponent3 } from './directives-deep-dive/app.component';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -35,6 +36,7 @@ export const routes: Routes = [
   { path: 'invest', component: AppComponent },
   { path: 'status', component: AppComponent1 },
   { path: 'lifecycle', component: AppComponent2 },
+  { path: 'directive', component: AppComponent3 },
   
   {
     path: '', // <your-domain>/
