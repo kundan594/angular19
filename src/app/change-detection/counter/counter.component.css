@@ -6,6 +6,7 @@
   display: block;
   border: 2px solid #ffc800;
   text-align: center;
+  border: 10px solid red;
 }
 
 p {
