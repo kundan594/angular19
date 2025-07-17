@@ -15,4 +15,10 @@ export class AppComponent6 {
     console.log('[AppComponent] "debugOutput" binding re-evaluated.');
     return 'AppComponent Component Debug Output';
   }
+
+   one(){
+    setTimeout(() => {
+        console.log('Timer expired!');
+      }, 5000);
+  }
 }
