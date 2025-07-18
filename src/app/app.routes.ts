@@ -21,6 +21,7 @@ import { AppComponent4 } from './pipe-deep-dive/app.component';
 import { AppComponent5 } from './serviceExample/app.component';
 import { AppComponent6 } from './change-detection/app.component';
 import { AppComponent7 } from './rxjs/app.component';
+import { AppComponent8 } from './places/app.component';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -45,6 +46,7 @@ export const routes: Routes = [
   { path: 'service', component: AppComponent5},
   { path: 'zone', component: AppComponent6},
   { path: 'rxjs', component: AppComponent7},
+  { path: 'place', component: AppComponent8},
   
   
 
