@@ -17,7 +17,7 @@ import { Observable, interval, map } from 'rxjs';
   templateUrl: './app.component.html',
    styleUrl: './app.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent7 implements OnInit {
   clickCount = signal(0);
   clickCount$ = toObservable(this.clickCount);
   interval$ = interval(1000);
