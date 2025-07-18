@@ -31,10 +31,23 @@ export class PlacesService {
     );
   }
 
-  addPlaceToUserPlaces(placeId: string) {
-    return this.httpClient.put('http://localhost:3000/user-places', {
-      placeId,
-    });
+  addPlaceToUserPlaces(place: Place) {
+    const prevPlaces = this.userPlaces();
+
+    if (!prevPlaces.some((p) => p.id === place.id)) {
+      this.userPlaces.set([...prevPlaces, place]);
+    }
+
+    return this.httpClient
+      .put('http://localhost:3000/user-places', {
+        placeId: place.id,
+      })
+      .pipe(
+        catchError((error) => {
+          this.userPlaces.set(prevPlaces);
+          return throwError(() => new Error('Failed to store selected place.'));
+        })
+      );
   }
 
   removeUserPlace(place: Place) {}
