@@ -29,7 +29,7 @@ export class UserPlacesComponent implements OnInit {
       },
       complete: () => {
         this.isFetching.set(false);
-      }
+      },
     });
 
     this.destroyRef.onDestroy(() => {
