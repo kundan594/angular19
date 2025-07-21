@@ -8,31 +8,32 @@ import { routes } from './app.routes';
 import { employeesReducer } from './employees/employees.reducer';
 import { EmployeesEffects } from './employees/employees.effects';
 import { API_URL } from './shared/api.token';
+import { loggingInterceptor  } from 'my-lib';
 
 
 import { tap } from 'rxjs';
 
-function loggingInterceptor(
-  request: HttpRequest<unknown>,
-  next: HttpHandlerFn
-) {
-  // const req = request.clone({
-  //   headers: request.headers.set('X-DEBUG', 'TESTING')
-  // });
-  console.log('[Outgoing Request]');
-  console.log(request);
-  return next(request).pipe(
-    tap({
-      next: event => {
-        if (event.type === HttpEventType.Response) {
-          console.log('[Incoming Response]');
-          console.log(event.status);
-          console.log(event.body);
-        }
-      }
-    })
-  );
-}
+// function loggingInterceptor(
+//   request: HttpRequest<unknown>,
+//   next: HttpHandlerFn
+// ) {
+//   // const req = request.clone({
+//   //   headers: request.headers.set('X-DEBUG', 'TESTING')
+//   // });
+//   console.log('[Outgoing Request]');
+//   console.log(request);
+//   return next(request).pipe(
+//     tap({
+//       next: event => {
+//         if (event.type === HttpEventType.Response) {
+//           console.log('[Incoming Response]');
+//           console.log(event.status);
+//           console.log(event.body);
+//         }
+//       }
+//     })
+//   );
+// }
 
 
 export const appConfig: ApplicationConfig = {
