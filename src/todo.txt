@@ -1,0 +1,11 @@
+1) Go through the all code each months 
+2)library concept 
+3)performance 
+4)npx
+5)module federation / micro app
+6)unit testing 
+7)more on structure ways
+8)scroll all options with paginations 
+9)Event system in micro app
+10)add translation 
+110 play with coockie and storage 
