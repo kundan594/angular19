@@ -95,3 +95,38 @@ interface User {
     'status-offline': currentStatus === 'offline',
     'status-unknown': currentStatus === 'unknown'
   }" >
+
+
+
+
+  In TypeScript, the statement:
+
+declare var variable_name: type;
+
+Copy
+
+Insert
+
+means you are telling the TypeScript compiler that a variable named variable_name exists somewhere (for example, it is provided by an external script or library), but you are not defining it in your code. You are only declaring its existence and (optionally) its type.
+
+Why use declare var?
+To let TypeScript know about global variables that are defined outside your TypeScript code (e.g., by a CDN script, legacy JS, or a browser API).
+To avoid TypeScript errors about "cannot find name" for variables that are actually available at runtime.
+
+Key Points
+declare var does NOT create the variable or allocate memory for it.
+It only tells TypeScript about its existence and type.
+It is used for type checking and code completion, not for actual variable definition.
+
+
+
+https://angular.dev/tools/libraries/creating-libraries 
+
+
+ng new my-workspace --no-create-application
+cd my-workspace
+ng generate library my-lib
+
+ng build my-lib --configuration development
+ng test my-lib
+ng lint my-lib
