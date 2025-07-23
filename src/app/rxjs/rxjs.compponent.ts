@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { EMPTY, Observable, catchError, concatMap, fromEvent } from 'rxjs';
+import { EMPTY, Observable, catchError, concatMap, fromEvent, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, debounceTime } from 'rxjs/operators';
 interface NewsItem {
