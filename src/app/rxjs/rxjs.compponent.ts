@@ -7,18 +7,18 @@ import { Observable } from 'rxjs';
   standalone: true,
   templateUrl: './rxjs.component.html',
   styleUrl: './rxjs.css',
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class rxjs implements OnInit {
-     someObservable$!:Observable<string>;
+  someObservable$!: Observable<string>;
   ngOnInit(): void {
-   this.someObservable$ = new Observable<string>((subscriber) => {
+    this.someObservable$ = new Observable<string>((subscriber) => {
+      console.log('Observable executed');
       subscriber.next('Alice');
-      subscriber.next('Ben');
-      subscriber.next('Charlie22');
-      subscriber.complete();
+      setTimeout(() => subscriber.next('Ben'), 2000);
+      setTimeout(() => subscriber.next('Charlie'), 4000);
     });
 
-    // someObservable$.subscribe((value) => console.log(value));
+
   }
 }
