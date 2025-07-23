@@ -28,11 +28,16 @@ export class rxjs implements OnInit {
       fromEvent(this.fetchButton.nativeElement, 'click').pipe(
         map(() => this.endpointInput!.nativeElement.value),
         concatMap(value =>
-          ajax(`https://jsonplaceholder.typicode.com/todos/${value}`)
+        ajax(`https://jsonplaceholder.typicode.com/todos/${value}`).pipe(
+        catchError(error => {
+        console.error('AJAX error:', error);
+        return of({ error: true, message: error.message });
+        })
         )
-      ).subscribe(
+        )
+        ).subscribe(
         value => console.log(value)
-      );
+        );
     } else {
       console.error('fetchButton or endpointInput not found in the template.');
     }
