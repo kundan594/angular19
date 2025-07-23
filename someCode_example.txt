@@ -130,3 +130,53 @@ ng generate library my-lib
 ng build my-lib --configuration development
 ng test my-lib
 ng lint my-lib
+
+
+
+In Angular, EventType is related to the Angular Router’s navigation events. These events help you track the lifecycle of route changes. Here are all the main event types you’ll encounter:
+
+Angular Router Event Types
+NavigationStart
+
+Fired when navigation starts.
+Useful for showing loading indicators.
+NavigationEnd
+
+Fired when navigation ends successfully.
+Useful for hiding loaders or tracking page views.
+NavigationCancel
+
+Fired when navigation is canceled (e.g., a guard returns false).
+NavigationError
+
+Fired when navigation fails due to an error.
+RoutesRecognized
+
+Fired when the router parses the URL and recognizes the route.
+GuardsCheckStart
+
+Fired when router starts running route guards.
+GuardsCheckEnd
+
+Fired when router finishes running route guards.
+ResolveStart
+
+Fired when router starts running route resolvers.
+ResolveEnd
+
+Fired when router finishes running route resolvers.
+ChildActivationStart
+
+Fired when a child route is about to be activated.
+ChildActivationEnd
+
+Fired when a child route has been activated.
+ActivationStart
+
+Fired when a route is about to be activated.
+ActivationEnd
+
+Fired when a route has been activated.
+Example: Listening to Router Events
+Summary:
+These event types let you react to every stage of Angular’s navigation process, such as showing/hiding loaders, handling errors, or tracking route changes.
