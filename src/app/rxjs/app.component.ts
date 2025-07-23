@@ -10,12 +10,14 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 import { Observable, interval, map } from 'rxjs';
+import { rxjs } from './rxjs.compponent';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-   styleUrl: './app.css'
+   styleUrl: './app.css',
+imports: [rxjs]
 })
 export class AppComponent7 implements OnInit {
   clickCount = signal(0);
