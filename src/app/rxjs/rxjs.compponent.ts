@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
- interface NewsItem {
-      category: 'Business' | 'Sports';
-      content: string;
-    }
-
+import { Observable, forkJoin } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+import { map } from 'rxjs/operators';
+interface NewsItem {
+  category: 'Business' | 'Sports';
+  content: string;
+}
 
 @Component({
   selector: 'rxjs',
@@ -15,37 +15,27 @@ import { filter } from 'rxjs/operators';
   styleUrl: './rxjs.css',
   imports: [CommonModule],
 })
-  
 export class rxjs implements OnInit {
   someObservable$!: Observable<NewsItem>;
   sportsNewsFeedfilter$!: Observable<NewsItem[] | NewsItem>;
-  ngOnInit(): void { 
-    this.someObservable$ = new Observable<NewsItem>((subscriber) => {
-      setTimeout(
-        () => subscriber.next({ category: 'Business', content: 'A' }),
-        1000
-      );
-      setTimeout(
-        () => subscriber.next({ category: 'Sports', content: 'B' }),
-        3000
-      );
-      setTimeout(
-        () => subscriber.next({ category: 'Business', content: 'C' }),
-        4000
-      );
-      setTimeout(
-        () => subscriber.next({ category: 'Sports', content: 'D' }),
-        6000
-      );
-      setTimeout(
-        () => subscriber.next({ category: 'Business', content: 'E' }),
-        7000
-      );
-    });
+  ngOnInit(): void {
+    // Mike is from New Delhi and likes to eat pasta.
 
-     this.sportsNewsFeedfilter$ = this.someObservable$.pipe(
-      filter((item) => item.category === 'Sports')
+    const randomFirstName$ = ajax<any>(
+      'https://random-data-api.com/api/name/random_name'
+    ).pipe(map((ajaxResponse) => ajaxResponse.response.first_name));
+
+    const randomCapital$ = ajax<any>(
+      'https://random-data-api.com/api/nation/random_nation'
+    ).pipe(map((ajaxResponse) => ajaxResponse.response.capital));
+
+    const randomDish$ = ajax<any>(
+      'https://random-data-api.com/api/food/random_food'
+    ).pipe(map((ajaxResponse) => ajaxResponse.response.dish));
+
+    forkJoin([randomFirstName$, randomCapital$, randomDish$]).subscribe(
+      ([firstName, capital, dish]) =>
+        console.log(`${firstName} is from ${capital} and likes to eat ${dish}.`)
     );
-
   }
 }
