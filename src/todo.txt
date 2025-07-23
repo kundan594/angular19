@@ -1,4 +1,4 @@
-1) Go through the all code each months 
+1)Go through the all code each months 
 2)library concept 
 3)performance 
 4)npx
@@ -8,4 +8,7 @@
 8)scroll all options with paginations 
 9)Event system in micro app
 10)add translation 
-110 play with coockie and storage 
+11)play with cockie and storage 
+12) mock data insated of real api on basis of env 
+13) traslation
+14) web pack configuration 
