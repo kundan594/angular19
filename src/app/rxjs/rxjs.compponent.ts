@@ -19,7 +19,38 @@ export class rxjs implements OnInit {
   @ViewChild('endpointInput') endpointInput?: ElementRef<HTMLInputElement>;
   @ViewChild('fetchButton') fetchButton?: ElementRef<HTMLButtonElement>;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const directors = [
+  {
+    type: "Director",
+    name: "Christopher Nolan",
+    movies: [
+      { type: "Movie", title: "lll", year: 2010 },
+      { type: "Movie", title: "Interstellar", year: 2014 },
+      { type: "Movie", title: "lll", year: 2017 }
+    ]
+  },
+  {
+    type: "Director",
+    name: "kundan Nolan",
+    movies: [
+      { type: "Movie", title: "kkk", year: 2010 },
+      { type: "Movie", title: "Interstellar", year: 2014 },
+      { type: "Movie", title: "kkk", year: 2017 }
+    ]
+  }
+];
+
+// Get all movies from all directors
+const allMovies = directors.flatMap(director => director.movies);
+
+// Remove duplicates by title
+const uniqueMovies = Array.from(
+  new Map(allMovies.map(movie => [movie.title, movie])).values()
+);
+
+console.log("unique movie with diff title",uniqueMovies);
+  }
 
   ngAfterViewInit() {
     if (this.fetchButton && this.endpointInput) {
