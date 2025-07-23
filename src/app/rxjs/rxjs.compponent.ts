@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Observable, fromEvent } from 'rxjs';
+import { EMPTY, Observable, catchError, fromEvent } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, debounceTime } from 'rxjs/operators';
 interface NewsItem {
@@ -20,13 +20,23 @@ export class rxjs implements OnInit {
   sportsNewsFeedfilter$!: Observable<NewsItem[] | NewsItem>;
   @ViewChild('sliderInput') sliderInput!: ElementRef<HTMLInputElement>;
   ngOnInit(): void {
-    // Your OnInit logic here
+    const failingHttpRequest$ = new Observable((subscriber) => {
+      setTimeout(() => {
+        subscriber.error(new Error('Timeout'));
+      }, 3000);
+    });
+
+    console.log('App started');
+    failingHttpRequest$.pipe(catchError((error) => EMPTY)).subscribe({
+      next: (value) => console.log(value,"value---"),
+      complete: () => console.log('Completed'),
+    });
   }
 
   ngAfterViewInit() {
-    fromEvent(this.sliderInput.nativeElement, 'input').pipe(
-      debounceTime(2000),
-      map((event: Event) => (event.target as HTMLInputElement).value)
-    ).subscribe(value => console.log(value,"==="));
+    // fromEvent(this.sliderInput.nativeElement, 'input').pipe(
+    //   debounceTime(2000),
+    //   map((event: Event) => (event.target as HTMLInputElement).value)
+    // ).subscribe(value => console.log(value,"==="));
   }
 }
