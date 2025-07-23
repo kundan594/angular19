@@ -19,25 +19,23 @@ export class rxjs implements OnInit {
   @ViewChild('endpointInput') endpointInput?: ElementRef<HTMLInputElement>;
   @ViewChild('fetchButton') fetchButton?: ElementRef<HTMLButtonElement>;
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     if (this.fetchButton && this.endpointInput) {
-      fromEvent(this.fetchButton.nativeElement, 'click').pipe(
-        map(() => this.endpointInput!.nativeElement.value),
-        concatMap(value =>
-        ajax(`https://jsonplaceholder.typicode.com/todos/${value}`).pipe(
-        catchError(error => {
-        console.error('AJAX error:', error);
-        return of({ error: true, message: error.message });
-        })
+      fromEvent(this.fetchButton.nativeElement, 'click')
+        .pipe(
+          map(() => this.endpointInput!.nativeElement.value),
+          concatMap((value) =>
+            ajax(`https://jsonplaceholder.typicode.com/todos/${value}`).pipe(
+              catchError((error) => {
+                console.error('AJAX error:', error);
+                return of({ error: true, message: error.message });
+              })
+            )
+          )
         )
-        )
-        ).subscribe(
-        value => console.log(value)
-        );
+        .subscribe((value) => console.log(value));
     } else {
       console.error('fetchButton or endpointInput not found in the template.');
     }
