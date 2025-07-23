@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Observable, fromEvent } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 interface NewsItem {
   category: 'Business' | 'Sports';
   content: string;
@@ -18,24 +18,15 @@ interface NewsItem {
 export class rxjs implements OnInit {
   someObservable$!: Observable<NewsItem>;
   sportsNewsFeedfilter$!: Observable<NewsItem[] | NewsItem>;
+  @ViewChild('sliderInput') sliderInput!: ElementRef<HTMLInputElement>;
   ngOnInit(): void {
-    // Mike is from New Delhi and likes to eat pasta.
+    // Your OnInit logic here
+  }
 
-    const randomFirstName$ = ajax<any>(
-      'https://random-data-api.com/api/name/random_name'
-    ).pipe(map((ajaxResponse) => ajaxResponse.response.first_name));
-
-    const randomCapital$ = ajax<any>(
-      'https://random-data-api.com/api/nation/random_nation'
-    ).pipe(map((ajaxResponse) => ajaxResponse.response.capital));
-
-    const randomDish$ = ajax<any>(
-      'https://random-data-api.com/api/food/random_food'
-    ).pipe(map((ajaxResponse) => ajaxResponse.response.dish));
-
-    forkJoin([randomFirstName$, randomCapital$, randomDish$]).subscribe(
-      ([firstName, capital, dish]) =>
-        console.log(`${firstName} is from ${capital} and likes to eat ${dish}.`)
-    );
+  ngAfterViewInit() {
+    fromEvent(this.sliderInput.nativeElement, 'input').pipe(
+      debounceTime(2000),
+      map((event: Event) => (event.target as HTMLInputElement).value)
+    ).subscribe(value => console.log(value,"==="));
   }
 }
