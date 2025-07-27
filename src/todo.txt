@@ -12,3 +12,6 @@
 12) mock data insated of real api on basis of env 
 13) traslation
 14) web pack configuration 
+15)session management
+16)BroadcastChannel is a Web API that allows simple communication between different browser tabs, windows, iframes, or workers of the same origin (domain).
+17)iframe
