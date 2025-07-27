@@ -180,3 +180,188 @@ Fired when a route has been activated.
 Example: Listening to Router Events
 Summary:
 These event types let you react to every stage of Angular’s navigation process, such as showing/hiding loaders, handling errors, or tracking route changes.
+
+
+
+
+ets you use *ngIf, *ngFor, *ngSwitch, etc., without adding extra HTML elements to the DOM.
+
+*Example: Using ngIf
+
+<ng-container *ngIf="isLoggedIn">
+  <p>Welcome, user!</p>
+</ng-container>
+
+Copy
+
+Insert
+
+No extra wrapper is added to the DOM.
+
+2. Grouping Multiple Elements for a Directive
+You can group multiple elements under a single structural directive.
+
+*Example: Multiple elements with ngIf
+
+<ng-container *ngIf="showDetails">
+  <h2>Details</h2>
+  <p>Here are more details...</p>
+</ng-container>
+
+Copy
+
+Insert
+
+3. Using *ngFor Without Extra DOM
+Example:
+
+<ng-container *ngFor="let item of items">
+  <li>{{ item }}</li>
+</ng-container>
+
+Copy
+
+Insert
+
+No extra element is created for the loop.
+
+4. Nesting Structural Directives
+You cannot use two structural directives on the same element, but you can nest them with .
+
+**Example: ngIf inside ngFor
+
+<ul>
+  <li *ngFor="let user of users">
+    <ng-container *ngIf="user.active">
+      {{ user.name }}
+    </ng-container>
+  </li>
+</ul>
+
+Copy
+
+Insert
+
+5. *ngSwitch with
+Example:
+
+<ng-container [ngSwitch]="status">
+  <p *ngSwitchCase="'loading'">Loading...</p>
+  <p *ngSwitchCase="'error'">Error!</p>
+  <p *ngSwitchDefault>Ready</p>
+</ng-container>
+
+Copy
+
+Insert
+
+6. Template Reference Variables
+You can use to define a template reference variable for a block of content.
+
+Example:
+
+<ng-container #myBlock>
+  <p>This is a block of content.</p>
+</ng-container>
+<button (click)="doSomething(myBlock)">Click me</button>
+
+Copy
+
+Insert
+
+7. Conditional Content Projection
+In Angular content projection (ng-content), you can use to conditionally project content.
+
+Example:
+
+<!-- In parent component template -->
+<app-card>
+  <ng-container *ngIf="showHeader" ngProjectAs="header">
+    <h1>Header</h1>
+  </ng-container>
+</app-card>
+
+Copy
+
+Insert
+
+8. Dynamic Component Loading
+You can use with ViewContainerRef to dynamically insert components.
+
+Example (in TypeScript):
+
+@ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+
+Copy
+
+Insert
+
+<ng-container #container></ng-container>
+
+Copy
+
+Insert
+
+9. Using with Pipes
+You can use to apply pipes to a block of content.
+
+Example:
+
+<ng-container *ngIf="user$ | async as user">
+  <p>{{ user.name }}</p>
+</ng-container>
+
+Copy
+
+Insert
+
+10. Avoiding Unnecessary DOM Elements
+Use to avoid adding unnecessary
+
+or wrappers just for Angular logic.
+Summary Table:
+
+Structural directives*ngIf, *ngFor, *ngSwitchGrouping elementsMultiple elements under one directiveNesting directives*ngIf inside *ngForTemplate reference variables#ref for a blockContent projectionngProjectAs with *ngIfDynamic
+ component loadingViewContainerRefUsing with pipesasync pipe with *ngIfAvoiding extra DOMNo extra or
+
+{
+...currentData,
+...amountData
+}
+ vs 
+
+{
+...currentData,
+amountData
+}
+
+what will diffetence explain with code
+
+1. { ...currentData, ...amountData }
+Effect:
+This merges all properties from currentData and all properties from amountData into a new object.
+Result:
+If both objects have a property with the same name, the value from amountData will overwrite the value from currentData.
+Example:
+
+2. { ...currentData, amountData }
+Effect:
+This merges all properties from currentData and then adds a single property called amountData, whose value is the entire amountData object.
+Result:
+The resulting object will have all properties from currentData and one property named amountData (which is an object).
+Example:
+
+const currentData = { a: 1, b: 2 };
+const amountData = { b: 3, c: 4 };
+
+const result = { ...currentData, amountData };
+// result: { a: 1, b: 2, amountData: { b: 3, c: 4 } }
+
+Summary Table
+Pattern	Resulting Object Structure
+{ ...currentData, ...amountData }	All properties merged, keys from amountData overwrite currentData
+{ ...currentData, amountData }	All properties from currentData + one property amountData (object)
+In short:
+
+...amountData spreads properties.
+amountData adds a nested object property.
