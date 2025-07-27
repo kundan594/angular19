@@ -3,6 +3,7 @@ import { provideRouter, withComponentInputBinding, withRouterConfig } from '@ang
 import { HttpClientModule, HttpEventType, HttpHandlerFn, HttpRequest, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { employeesReducer } from './employees/employees.reducer';
@@ -49,6 +50,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideStore({ employees: employeesReducer }),
     provideEffects([EmployeesEffects]),
+    importProvidersFrom(StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: false })),
     [provideHttpClient(withInterceptors([loggingInterceptor]))],
     { provide: API_URL, useValue: 'https://dummyjson.com' }
   ]
