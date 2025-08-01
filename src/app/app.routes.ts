@@ -23,6 +23,7 @@ import { AppComponent6 } from './change-detection/app.component';
 import { AppComponent7 } from './rxjs/app.component';
 import { AppComponent8 } from './places/app.component';
 import { AppComponent9 } from './forms/app/app.component';
+import { IframeExampleComponent } from './iframe-example/iframe-example.component';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
   const router = inject(Router);
@@ -49,6 +50,8 @@ export const routes: Routes = [
   { path: 'rxjs', component: AppComponent7},
   { path: 'place', component: AppComponent8},
   { path: 'form', component: AppComponent9},
+  { path: 'iframe', component: IframeExampleComponent},
+  
   
   
 

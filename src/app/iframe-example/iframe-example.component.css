@@ -1,0 +1,16 @@
+.iframe-demo {
+  max-width: 700px;
+  margin: 2em auto;
+  padding: 1em;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+.iframe-demo input[type="text"],
+.iframe-demo input[type="url"] {
+  width: 400px;
+  margin-left: 0.5em;
+}
+.iframe-demo button {
+  margin-right: 1em;
+}

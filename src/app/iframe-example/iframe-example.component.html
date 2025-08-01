@@ -1,0 +1,29 @@
+<div class="iframe-demo">
+  <h2>Angular Iframe Example</h2>
+
+  <label>
+    Iframe URL:
+    <input [(ngModel)]="url" (ngModelChange)="updateUrl($event)" />
+  </label>
+
+  <button (click)="sendMessageToIframe()">Send Message to Iframe</button>
+  <input [(ngModel)]="messageToIframe" placeholder="Message to iframe" />
+
+  <div style="margin: 1em 0;">
+    <strong>Message from iframe:</strong> {{ messageFromIframe  | json }}
+  </div>
+
+  <iframe
+    #iframe
+    [src]="safeUrl"
+    width="600"
+    height="300"
+    (load)="onIframeLoad(iframe)"
+    style="border:1px solid #ccc;"
+  ></iframe>
+
+  <p style="font-size: 0.9em; color: #888;">
+    Try changing the URL to a page you control that can send a postMessage back to the parent.<br />
+    For demo, you can use <code>https://jsfiddle.net/</code> or similar and add <code>window.parent.postMessage('Hello from iframe!', '*');</code> in the JS.
+  </p>
+</div>

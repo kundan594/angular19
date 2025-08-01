@@ -5,13 +5,14 @@ import { HeaderComponent } from './header/header.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MyLibComponent  } from 'my-lib';
+import { PdfViewerComponent } from './pdf-viewer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, WelcomeComponent ,UsersComponent, RouterOutlet,MyLibComponent],
+  imports: [HeaderComponent, WelcomeComponent ,UsersComponent, RouterOutlet,MyLibComponent,PdfViewerComponent],
 })
 export class AppComponent {
 title = 'employee-list';
